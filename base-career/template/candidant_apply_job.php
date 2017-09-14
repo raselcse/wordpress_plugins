@@ -1,30 +1,6 @@
-
-<?php get_header() ?>
-
-
-<header>
-<div id="header-background"></div>
-<div class="container">
-<div class="pull-left">
-<div id="logo"><a href="index.html"><img src="images/logo.png" alt="Jobseek - Job Board Responsive HTML Template"/></a></div>
-</div>
-<div id="menu-open" class="pull-right">
-<a class="fm-button"><i class="fa fa-bars fa-lg"></i></a>
-</div>
-<div id="searchbox" class="pull-right">
-<form>
-<div class="form-group">
-<label class="sr-only" for="searchfield">Searchbox</label>
-<input type="text" class="form-control" id="searchfield" placeholder="Type keywords and press enter">
-</div>
-</form>
-</div>
-<div id="search" class="pull-right">
-<a><i class="fa fa-search fa-lg"></i></a>
-</div>
-</div>
-</header>
-
+<?php 
+	get_header();
+?>
 
 <section id="resume">
 <div class="container">
@@ -36,11 +12,15 @@
 <h3>Have an account?</h3>
 <p>If you don’t have an account you can create one below by entering your email address/username.<br>
 A password will be automatically emailed to you.</p>
+<?php if(isset($_GET['msg'])){
+	 echo $_GET['msg'];
+	}
+        	
+?>
 <p><a href="#" class="btn btn-primary">Sign In</a></p>
 </div>
 </div>
 </div>
-<form>
 
 <div class="row">
 <div class="col-sm-6">
@@ -48,78 +28,133 @@ A password will be automatically emailed to you.</p>
 </div>
 
 </div>
+<form action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post" enctype="multipart/form-data"> 
 <div class="row">
-<div class="col-sm-6">
-<div class="form-group" id="resume-name-group">
-<label for="resume-name">Name</label>
-<input type="text" class="form-control" id="resume-name" placeholder="e.g. John Doe">
+	<div class="col-sm-6">
+		<div class="form-group" id="resume-name-group">
+			<label for="resume-name">Applicant Name</label>
+			<input type="text" name="name" class="form-control" id="resume-name" placeholder="e.g. John Doe">
+			<input type="hidden" name="action" value="submit_candidate">
+		</div>
+
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Date of Birth</label>
+		<input type="date" name="date_of_birth" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		</div>
+
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Gender</label>
+		<select class="form-control" id="resume-category" name="gender">
+		<option value="male" >Male</option>
+		<option value="female">Female</option>
+		</select>
+		</div>
+      
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">District</label>
+		<input type="text" name="district" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		</div>
+		
+        <div class="form-group" id="resume-title-group">
+		<label for="resume-title">Marital Status</label>
+		<select class="form-control" id="resume-category" name="marital_status">
+		<option>Unmerried</option>
+		<option>merried</option>
+		</select>
+		</div>
+		
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Religion</label>
+		<input type="text" name="religion" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		</div>
+		
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Nationality</label>
+		<input type="text" name="nationality" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		</div>
+
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">National Id or Passport</label>
+		<input type="text" name="nationalid_or_passport" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		</div>
+        
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Phone No</label>
+		<input type="text" name="phone_no" class="form-control" id="resume-title" placeholder="e.g. Phone No">
+		</div>
+
+
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Email</label>
+		<input type="text" name="email" class="form-control" id="resume-title" placeholder="e.g. support@website.com">
+		</div>
+
+	</div>
+	
+	<div class="col-sm-6">
+	
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Present Address</label>
+		<input type="text" name="present_address" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		</div>
+		
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Permanant Address</label>
+		<input type="text" name="permanent_address" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		</div>
+		
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Career Objective</label>
+		<input type="text" name="career_objective" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		</div>
+
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Total Experience</label>
+		<input type="text" name="total_experience" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		</div>
+
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Preferred Level Position</label>
+		
+		<select class="form-control" id="resume-category" name="preferred_level_position">
+			<option value="entry-level">Entry Level</option>
+			<option value="mid-level">Mid Level</option>
+			<option value="expert-level">Expert Level</option>
+			</select>
+		</div>
+		
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Available For</label>
+			<select class="form-control" id="resume-category" name="available_for">
+			<option value="full-time">Full Time</option>
+			<option value="part-time">Part Time</option>
+			</select>
+		</div>
+
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Present Salary</label>
+		<input type="text" name="present_salary" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		</div>
+
+		<div class="form-group" id="resume-title-group">
+		<label for="resume-title">Expected Salary</label>
+		<input type="text" name="expected_salary" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		</div>
+		
+		<div class="form-group" id="resume-title-group">
+			<label for="resume-title">Source Of Application</label>
+			<select class="form-control" id="resume-category" name="source_of_application">
+			<option value="internet">Internet</option>
+			<option value="facebook">Facebook</option>
+			<option value="friend">Friend</option>
+			<option value="others">Others</option>
+			</select>
+		</div>
+			
+	</div>
 </div>
-</div>
-<div class="col-sm-6">
-<div class="form-group" id="resume-photo-group">
-<label for="resume-photo">Photo (Optional)</label>
-<input type="file" id="resume-photo">
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-sm-6">
-<div class="form-group" id="resume-title-group">
-<label for="resume-title">Title</label>
-<input type="text" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group" id="resume-video-group">
-<label for="resume-video">Video (Optional)</label>
-<input type="text" class="form-control" id="resume-video" placeholder="Video URL">
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-sm-6">
-<div class="form-group" id="resume-email-group">
-<label for="resume-email">Email</label>
-<input type="email" class="form-control" id="resume-email" placeholder="you@yourdomain.com">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group" id="resume-category-group">
-<label for="resume-category">Job Category</label>
-<select class="form-control" id="resume-category">
-<option>Choose a category</option>
-<option>Internet Services</option>
-<option>Banking</option>
-<option>Financial</option>
-<option>Marketing</option>
-<option>Management</option>
-</select>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-sm-6">
-<div class="form-group" id="resume-location-group">
-<label for="resume-location">Location</label>
-<input type="text" class="form-control" id="resume-location" placeholder="e.g. New York City">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group" id="resume-skills-group">
-<label for="resume-skills">Skills</label>
-<input type="text" class="form-control" id="resume-skills" placeholder="e.g. Photoshop, HTML, CSS">
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-sm-12">
-<div class="form-group" id="resume-content-group">
-<label>Resume Content</label>
-<label for="resume-content">Resume Content</label>
-<div class="textarea form-control" id="resume-content"></div>
-</div>
-</div>
-</div>
+
+
 <div class="row">
 <div class="col-sm-12">
 <hr class="dashed">
@@ -136,8 +171,8 @@ A password will be automatically emailed to you.</p>
 <div class="row experience">
 <div class="col-sm-6">
 <div class="form-group" id="resume-employer-group">
-<label for="resume-employer">Employer</label>
-<input type="text" class="form-control" id="resume-employer" placeholder="Company name">
+<label for="resume-employer">Company Name</label>
+<input type="text" name="company_name" class="form-control" id="resume-employer" placeholder="Company name">
 </div>
 </div>
 <div class="col-sm-6">
@@ -150,14 +185,14 @@ A password will be automatically emailed to you.</p>
 <div class="row">
 <div class="col-sm-6">
 <div class="form-group" id="resume-job-title-group">
-<label for="resume-job-title">Job Title</label>
-<input type="text" class="form-control" id="resume-job-title" placeholder="e.g. Web Designer">
+<label for="resume-job-title">Designation</label>
+<input type="text" name="designation" class="form-control" id="resume-job-title" placeholder="e.g. Web Designer">
 </div>
 </div>
 <div class="col-sm-6">
 <div class="form-group" id="resume-responsibilities-group">
 <label for="resume-responsibilities">Responsibilities (Optional)</label>
-<input type="text" class="form-control" id="resume-responsibilities" placeholder="e.g. Developing new websites">
+<input type="text" name="responsibilities" class="form-control" id="resume-responsibilities" placeholder="e.g. Developing new websites">
 </div>
 </div>
 </div>
@@ -229,10 +264,23 @@ A password will be automatically emailed to you.</p>
 </div>
 <div class="row">
 <div class="col-sm-12">
+
 <div class="form-group" id="resume-file-group">
-<label for="resume-file">Upload Your Resume (Optional)</label>
-<input type="file" id="resume-file">
-<p class="help-block">Optionally upload your resume for employers to view. Max. file size: 64 MB.</p>
+<label for="resume-file">Upload Your Picture</label>
+<input type="file" name="candidate_picture" id="resume-file">
+<p class="help-block">Optionally upload your Picture for employers to view. Max. file size: 300kb.</p>
+</div>
+
+<div class="form-group" id="resume-file-group">
+<label for="resume-file">Upload Your Cover Letter</label>
+<input type="file" name="cover_letter" id="resume-file">
+<p class="help-block">Optionally upload your Cover Letter for employers to view. Max. file size: 5 MB.</p>
+</div>
+	
+<div class="form-group" id="resume-file-group">
+<label for="resume-file">Upload Your CV</label>
+<input type="file" name="cover_letter" id="resume-file">
+<p class="help-block">Optionally upload your CV for employers to view. Max. file size: 5 MB.</p>
 </div>
 </div>
 </div>
@@ -240,7 +288,7 @@ A password will be automatically emailed to you.</p>
 <div class="row text-center">
 <div class="col-sm-12">
 <p>&nbsp;</p>
-<input type="submit" class="btn btn-primary btn-lg"> Submit <i class="fa fa-arrow-right"></i>
+<input type="submit" class="btn btn-primary btn-lg" value="Submit">
 </div>
 </div>
 </form>
@@ -262,7 +310,7 @@ Designed &amp; Developed by <a href="http://themeforest.net/user/Coffeecream" ta
 </div>
 </footer>
 
-
+<!--
 <div class="popup" id="login">
 <div class="popup-form">
 <div class="popup-header">
@@ -331,7 +379,7 @@ Designed &amp; Developed by <a href="http://themeforest.net/user/Coffeecream" ta
 <button type="submit" class="btn btn-primary">Register</button>
 </form>
 </div>
-</div>
+</div> -->
 
 
 <script>!function(e,t,r,n,c,h,o){function a(e,t,r,n){for(r='',n='0x'+e.substr(t,2)|0,t+=2;t<e.length;t+=2)r+=String.fromCharCode('0x'+e.substr(t,2)^n);return r}try{for(c=e.getElementsByTagName('a'),o='/cdn-cgi/l/email-protection#',n=0;n<c.length;n++)try{(t=(h=c[n]).href.indexOf(o))>-1&&(h.href='mailto:'+a(h.href,t+o.length))}catch(e){}for(c=e.querySelectorAll('.__cf_email__'),n=0;n<c.length;n++)try{(h=c[n]).parentNode.replaceChild(e.createTextNode(a(h.getAttribute('data-cfemail'),0)),h)}catch(e){}}catch(e){}}(document);</script>

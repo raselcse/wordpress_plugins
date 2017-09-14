@@ -67,15 +67,56 @@
 		
 	
 		public function saveCandidate(){
-			 $lab_test_name          = $_REQUEST['lab_test_name'];
-			 $lab_test_description   = $_REQUEST['lab_test_description'];
-			 $data             = array();
-			 $data['lab_test_name']  =$lab_test_name;
-			 $data['lab_test_description']=$lab_test_description;
-			 
-			 $load = new Basecareer_load();
-			 $labTestModel = $load->model('model_prescription');
-			 $success_insert = $labTestModel->saveLabTest('prescription' , $data);
+			global $wpdb;
+
+
+			$tablename=$wpdb->prefix.'candidate';
+			$data=array(
+					'name' => $_POST['name'], 
+					'date_of_birth' => $_POST['date_of_birth'],
+					'gender' => $_POST['gender'], 
+					'district' => $_POST['district'],
+					'nationality' => $_POST['nationality'], 
+					'religion' => $_POST['religion'], 
+					'nationalid_or_passport' => $_POST['nationalid_or_passport'], 
+					'phone_no' => $_POST['phone_no'],
+					'email' => $_POST['email'],
+					'marital_status' => $_POST['marital_status'], 
+					'present_address' => $_POST['present_address'],
+					'permanent_address' => $_POST['permanent_address'],
+					'preferred_level_position' => $_POST['preferred_level_position'],
+					'available_for' => $_POST['available_for'], 
+					'present_salary' => $_POST['present_salary'],
+					'expected_salary' => $_POST['expected_salary'], 
+					'career_objective' => $_POST['career_objective'],
+					'total_experience' => $_POST['total_experience'], 
+					'source_of_application' => $_POST['source_of_application'],
+				);
+			$data_formate = array( 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%s', 
+							'%d',
+							'%d',
+							'%s', 
+							'%s', 
+							'%s', 
+							);
+				$wpdb->insert( $tablename, $data , $data_formate );
+
+				
+			header("Location:/solar/apply-job?msg=successfully create your Biodata");
 		}
 		
 		
