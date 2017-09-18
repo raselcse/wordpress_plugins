@@ -3,7 +3,7 @@ class Basecareer_load{
 		
 	   function __construct(){}
 		
-		public function view($filename , $data = false , $msg= false, $moredata = false){
+		public function template($filename , $data = false , $msg= false, $moredata = false){
 		    if($data == true){
 			    extract($data);
 			}
@@ -13,7 +13,7 @@ class Basecareer_load{
 			if($moredata == true){
 			    extract($moredata);
 			}
-			include_once plugin_dir_path( __FILE__ ) ."../../views/".$filename.".php";
+			include_once plugin_dir_path( __FILE__ ) ."../../template/".$filename.".php";
 		}
 		
 

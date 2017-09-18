@@ -1,5 +1,5 @@
 <?php
-class Model_candidate_academic_qualification extends Basecareer_model{
+class Model_candidate_reference extends Basecareer_model{
     
     public function __construct(){
      	parent::__construct();
@@ -32,8 +32,10 @@ class Model_candidate_academic_qualification extends Basecareer_model{
 	public function update($table,$data,$id){
 		return $this->update_opl($table,$data,$id);
 	}
-    public function updateWhere($table, $data, $field, $id){
+    
+	public function updateWhere($table, $data, $field, $id){
 		
 		return $this->updateWhere_opl($table,$data,$field,$id);
 	}
+
 }

@@ -12,8 +12,10 @@ class Install_controller_basecareer
 			'candidate' 	=> $wpdb->prefix.'candidate',
 			'job' 	=> $wpdb->prefix.'job',
 			'candidate_experience' 	=> $wpdb->prefix.'candidate_experience',
-			'candidate_acadecmic' 	=> $wpdb->prefix.'candidate_acadecmic',
+			'candidate_academic_qualification' 	=> $wpdb->prefix.'candidate_academic_qualification',
+			'candidate_professional_qualification' 	=> $wpdb->prefix.'candidate_professional_qualification',
 			'candidate_reference' 	=> $wpdb->prefix.'candidate_reference',
+			'candidate_file' 	=> $wpdb->prefix.'candidate_file',
 		);
 	}
 	
@@ -28,6 +30,7 @@ class Install_controller_basecareer
 		
 		$sql_candidate = "CREATE TABLE ".$table_candidate." (
 			id int(11) NOT NULL auto_increment,
+			candidate_userid int(11) NOT NULL,
 			name varchar(255) NULL,
 			date_of_birth varchar(255) NULL,
 			gender varchar(255) NULL,
@@ -40,8 +43,8 @@ class Install_controller_basecareer
 			marital_status varchar(255) NULL,
 			present_address text(500) NULL,
 			permanent_address text(500) NULL,
-			preferred_level_position varchar(255) NOT NULL,
-			available_for varchar(255) NOT NULL,
+			preferred_level_position varchar(255) NULL,
+			available_for varchar(255) NULL,
 			present_salary int(20) NULL,
 			expected_salary int(20) NULL,
 			source_of_application varchar(255) NULL,
@@ -52,7 +55,7 @@ class Install_controller_basecareer
 		 dbDelta($sql_candidate); 
 		 
 		$table_job = $this->tables['job']; 
-		$sql_job = "CREATE TABLE ".$table_job." (
+		$sql_job = "CREATE TABLE ".$table_job."(
 			id int(11) NOT NULL auto_increment,
 			title varchar(255) NULL,
 			location varchar(255) NULL,
@@ -68,39 +71,50 @@ class Install_controller_basecareer
 		$table_candidate_experience = $this->tables['candidate_experience'];
 		$sql_candidate_experience = "CREATE TABLE ".$table_candidate_experience." (
 			id int(11) NOT NULL auto_increment,
-			candidate_id int(11) NOT NULL,
+			candidate_userid int(11) NOT NULL,
 			company_name varchar(255) NOT NULL,
-			Designation varchar(255) NOT NULL,
-			Responsibility varchar(255) NULL,
+			designation varchar(255) NOT NULL,
+			responsibility varchar(255) NULL,
 			start_date datetime DEFAULT '0000-00-00 00:00:00' NULL,
 			end_date datetime DEFAULT '0000-00-00 00:00:00' NULL,
 			PRIMARY KEY  (id)
 		)";
 		dbDelta($sql_candidate_experience);
 		
-		$table_candidate_acadecmic = $this->tables['candidate_acadecmic '];
-		$sql_candidate_acadecmic = "CREATE TABLE ".$table_candidate_acadecmic." (
+		$table_candidate_academic_qualification = $this->tables['candidate_academic_qualification '];
+		$sql_candidate_academic_qualification = "CREATE TABLE ".$table_candidate_academic_qualification." (
 			id int(11) NOT NULL auto_increment,
-			candidate_id int(11) NOT NULL,
-			exam_name varchar(255) NOT NULL,
-			institution_name varchar(255) NOT NULL,
-			subject varchar(255) NULL,
+			candidate_userid int(11) NOT NULL,
+			examination varchar(255) NULL,
+			school varchar(255) NULL,
 			board varchar(255) NULL,
-			passing_year varchar(255) NULL,
-			result_type varchar(255) NULL,
-			cgpa varchar(255) NULL,
-			number varchar(255) NULL,
+			subject varchar(255) NULL,
+			result float(50) NULL,
+			subject_group varchar(255) NULL,
+			passing_year year(50) NULL,
 			PRIMARY KEY  (id)
 		)";
-		dbDelta($sql_candidate_acadecmic);
+		dbDelta($sql_candidate_academic_qualification);
+		
+		$table_candidate_professional_qualification = $this->tables['candidate_professional_qualification '];
+		$sql_candidate_professional_qualification = "CREATE TABLE ".$table_candidate_professional_qualification." (
+			id int(11) NOT NULL auto_increment,
+			candidate_userid int(11) NOT NULL,
+			title varchar(255) NULL,
+			institute_name varchar(255) NULL,
+			duration varchar(255) NULL,
+			address varchar(255) NULL,
+			PRIMARY KEY  (id)
+		)";
+		dbDelta($sql_candidate_professional_qualification);
 		
 		$table_candidate_reference = $this->tables['candidate_reference'];
 		$sql_candidate_reference = "CREATE TABLE ".$table_candidate_reference." (
 			id int(11) NOT NULL auto_increment,
-			candidate_id int(11) NOT NULL,
-			full_name int(11) NOT NULL,
-			designation_company_address varchar(255) NOT NULL,
-			relationship varchar(255) NOT NULL,
+			candidate_userid int(11) NOT NULL,
+			full_name varchar(255) NULL,
+			designation_company_address varchar(255) NULL,
+			relationship varchar(255) NULL,
 			mobile varchar(255) NULL,
 			email varchar(255) NULL,
 			PRIMARY KEY  (id)
@@ -110,12 +124,12 @@ class Install_controller_basecareer
 		$table_candidate_file = $this->tables['candidate_file'];
 		$sql_candidate_file = "CREATE TABLE ".$table_candidate_file." (
 			id int(11) NOT NULL auto_increment,
-			candidate_id int(11) NOT NULL,
-			file_name VARCHAR( 30 ) NOT NULL
-			content MEDIUMBLOB NOT NULL 
+			candidate_userid int(11) NOT NULL,
+			file_name VARCHAR( 30 ) NOT NULL,
+			content MEDIUMBLOB NOT NULL ,
 			PRIMARY KEY  (id)
 		)";
-		dbDelta($sql_candidate_reference);
+		dbDelta($sql_candidate_file);
 		
 	
 	} 
@@ -125,10 +139,8 @@ class Install_controller_basecareer
 		require_once ABSPATH.'wp-admin/includes/upgrade.php';
 		add_option('basecareer_db_version', $this->db_version);
 			
-		$table_candidate = $this->tables['candidate'];
-		$table_job = $this->tables['job'];
-	    // $wpdb->query("DROP TABLE IF EXISTS ".$table_candidate."");
-		// $wpdb->query("DROP TABLE IF EXISTS ".$table_job."");
+		// $table_candidate = $this->tables['candidate'];
+		// $table_job = $this->tables['job'];
 
 	}
 }

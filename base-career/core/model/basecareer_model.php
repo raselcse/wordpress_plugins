@@ -69,4 +69,10 @@ Class Basecareer_model extends Basecareer_database{
 		$table = $wpdb->prefix.$table;
 		return $wpdb->update($table, $data, array('id'=>$id));
 	}
+	
+	public function updateWhere_opl($table, $data, $field, $id){
+		global $wpdb;
+		$table = $wpdb->prefix.$table;
+		return $wpdb->update($table, $data, array($field =>$id));
+	}
 }

@@ -43,19 +43,8 @@ class Model_prescription extends Pres_model{
 		return $this->update_opl($table,$data,$id);
 	}
 
-	
-	// public function getAdByMultipleWhere($table1, $table2, $id1, $id2, $cond_filed, $cond_value, $fields=false){
-        // if($fields == false){
-            // $fields = '*';
-        // }
-		// global $wpdb;
-		// $table1 = $wpdb->prefix.$table1;
-		// $table2 = $wpdb->prefix.$table2;
-
-		// $sql   = "SELECT $fields FROM $table1 JOIN $table2 ON $table1.$id1=$table2.$id2 WHERE $cond_filed=$cond_value";
-
-		// return $wpdb->get_results($sql);
-
-
-	// }
+	public function updateWhere($table, $data, $field, $id){
+		
+		return $this->updateWhere_opl($table,$data,$field,$id);
+	}
 }

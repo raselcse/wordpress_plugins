@@ -7,39 +7,43 @@ class Model_candidate extends Basecareer_model{
 		
     }
 	
-    public function saveCandidate($table , $data){
+    public function save($table , $data){
 		
 		return $this->save_opl($table , $data);
 	}
 	
-	public function getAllCandidate($table){
+	public function getAll($table){
 		
 		return $this->getAll_opl($table);
 	}
 
-	public function getActiveAllCandidate($table, $field, $value ){
+	public function getActiveAll($table, $field, $value ){
 		
 		return $this->getByWhere_opl($table, $field, $value);
 	}
 	
-	public function getByIdCandidate($table,$id){
+	public function getById($table,$id){
 		
 		return $this->getById_opl($table ,$id);
 	}
 
-	public function getByCandidateWhere($table,$field,$value){
+	public function getByWhere($table,$field,$value){
 		
 		return $this->getByWhere_opl($table,$field,$value);
 	}
 
-	public function deleteByIdCandidate($table,$id){
+	public function deleteById($table,$id){
 		
 		return $this->deleteById_opl($table , $id);
 		
 	}
 	
-	public function updateCandidate($table,$data,$id){
+	public function update($table,$data,$id){
 		
 		return $this->update_opl($table,$data,$id);
+	}
+	public function updateWhere($table, $data, $field, $id){
+		
+		return $this->updateWhere_opl($table,$data,$field,$id);
 	}
 }

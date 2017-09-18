@@ -1,5 +1,5 @@
 <?php
-	class Basecareer extends Basecareer_controller{
+	class Job extends Basecareer_controller{
 		
 		function __construct()
 		{
