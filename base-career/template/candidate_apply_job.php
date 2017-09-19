@@ -1,5 +1,8 @@
 <?php 
 	get_header();
+	
+	if ( is_user_logged_in() ) {
+  
 ?>
 
 <section id="resume">
@@ -451,7 +454,20 @@ A password will be automatically emailed to you.</p>
 </div>
 </section>
 
-
+<?php 
+	
+	}
+	
+    else
+	{
+		echo "Please Login First.";
+		?>
+		<a href="http://localhost/solar/login/">Click here</a>
+		<?php
+	}
+	
+?>	
+	
 
 <footer>
 <div id="credits">

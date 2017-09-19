@@ -1,33 +1,27 @@
 <?php 
 	get_header();
+	
+	if ( is_user_logged_in() ) {
+  
 ?>
 
 <section id="resume">
 	<div class="container">
 		<div class="row text-center">
 			<div class="col-sm-12">
-				<h1>Post a Resume</h1>
-				<h4>Find your perfect job</h4>
-				<div class="jumbotron">
-				<h3>Have an account?</h3>
-				<p>If you don’t have an account you can create one below by entering your email address/username.<br>
-				A password will be automatically emailed to you.</p>
+				<h1>Edit Resume</h1>
+				<div class="">
 				<?php if(isset($_GET['msg'])){
 					 echo $_GET['msg'];
 					}
 							
 				?>
-				<p><a href="#" class="btn btn-primary">Sign In</a></p>
 				</div>
 			</div>
 		</div>
 
-	<div class="row">
-		<div class="col-sm-6">
-		<h2>Resume details</h2>
-		</div>
-	</div>
     <?php 
+	
 	if(isset($basicinfo)){
 		foreach( $basicinfo as $info ) {
 			$name = $info->name;
@@ -49,7 +43,8 @@
 			$source_of_application = $info->source_of_application;
 			$career_objective = $info->career_objective;
 			$total_experience = $info->total_experience;
-				
+			
+			
 		}
 	}
 	if(isset($experiences)){
@@ -59,7 +54,7 @@
 			$responsibility = $experience->responsibility;
 			$start_date = $experience->start_date;
 			$end_date = $experience->end_date;
-				
+			
 		}
 	}
 	
@@ -72,7 +67,7 @@
 			$result = $academic_qualification->result;
 			$subject_group = $academic_qualification->subject_group;
 			$passing_year = $academic_qualification->passing_year;
-				
+			
 		}
 	}
 	if(isset($professional_qualifications)){
@@ -81,7 +76,7 @@
 			$institute_name = $professional_qualification->institute_name;
 			$duration = $professional_qualification->duration;
 			$address = $professional_qualification->address;
-				
+			
 		}
 	}
 	if(isset($references)){
@@ -91,7 +86,7 @@
 			$relationship = $reference->relationship;
 			$mobile = $reference->mobile;
 			$email = $reference->email;
-				
+			
 		}
 	}
 
@@ -563,14 +558,25 @@
 <div class="row text-center">
 <div class="col-sm-12">
 <p>&nbsp;</p>
-<input type="submit" class="btn btn-primary btn-lg" value="Submit">
+<input type="submit" class="btn btn-primary btn-lg" value="Update">
 </div>
 </div>
 </form>
 
 </div>
 </section>
-
+<?php 
+ }
+ 
+    else
+	{
+		echo "Please Login First.";
+		?>
+		<a href="http://localhost/solar/login/">Click here</a>
+		<?php
+	}
+	
+?>	
 
 
 <footer>

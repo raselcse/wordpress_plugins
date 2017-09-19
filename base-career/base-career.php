@@ -50,37 +50,36 @@ function basecareer_admin_deactivator(){
 //add_action( 'init', array('Advertisement_type','add_new'));
 
 function basecareer_css_and_js() {
-	wp_register_style('basecareer_bootstrap_css', plugins_url('public/css/bootstrap.min.css',__FILE__ ));
-	wp_register_style('basecareer_font_css', plugins_url('public/css/font-awesome.min.css',__FILE__ ));
-	wp_register_style('basecareer_animate_css', plugins_url('public/css/animate.css',__FILE__ ));
-	wp_register_style('basecareer_fancybox_css', plugins_url('public/css/jquery.fancybox.css',__FILE__ ));
-	wp_register_style('basecareer_flexmenu_css', plugins_url('public/css/jquery.flexmenu.css',__FILE__ ));
-	wp_register_style('basecareer_nouislider_css', plugins_url('public/css/jquery.nouislider.css',__FILE__ ));
-	wp_register_style('basecareer_carousel_css', plugins_url('public/css/owl.carousel.css',__FILE__ ));
+	//wp_register_style('basecareer_bootstrap_css', plugins_url('public/css/bootstrap.min.css',__FILE__ ));
+	// wp_register_style('basecareer_font_css', plugins_url('public/css/font-awesome.min.css',__FILE__ ));
+	// wp_register_style('basecareer_animate_css', plugins_url('public/css/animate.css',__FILE__ ));
+	// wp_register_style('basecareer_fancybox_css', plugins_url('public/css/jquery.fancybox.css',__FILE__ ));
+	// wp_register_style('basecareer_flexmenu_css', plugins_url('public/css/jquery.flexmenu.css',__FILE__ ));
+	// wp_register_style('basecareer_nouislider_css', plugins_url('public/css/jquery.nouislider.css',__FILE__ ));
+	// wp_register_style('basecareer_carousel_css', plugins_url('public/css/owl.carousel.css',__FILE__ ));
 	wp_register_style('basecareer_ad_css', plugins_url('public/css/style.css',__FILE__ ));
 	wp_enqueue_style('basecareer_ad_css');
-	wp_deregister_script( 'jquery' );
-	wp_register_script( 'basecareer_modernizr_js', plugins_url( 'public/js/modernizr.custom.79639.js', __FILE__ ));
-	wp_enqueue_script('basecareer_modernizr_js');
-	wp_register_script( 'basecareer_jquery_js', plugins_url( 'public/js/jquery-1.11.2.min.js', __FILE__ ), array());
-	wp_enqueue_script('basecareer_jquery_js');
+	
+	// wp_register_script( 'basecareer_modernizr_js', plugins_url( 'public/js/modernizr.custom.79639.js', __FILE__ ));
+	// wp_enqueue_script('basecareer_modernizr_js');
+	
 	
 	
 	
 
-	wp_register_script( 'basecareer_bootstrap_js', plugins_url( 'public/js/bootstrap.min.js', __FILE__ ) , array('basecareer_jquery_js'));
-	wp_enqueue_script('basecareer_bootstrap_js');
+	// wp_register_script( 'basecareer_bootstrap_js', plugins_url( 'public/js/bootstrap.min.js', __FILE__ ) , array('jquery'));
+	// wp_enqueue_script('basecareer_bootstrap_js');
 	
-	wp_register_script( 'basecareer_retina_js', plugins_url( 'public/js/retina.min.js', __FILE__ ) , array('basecareer_jquery_js'));
-	wp_enqueue_script('basecareer_retina_js');
+	// wp_register_script( 'basecareer_retina_js', plugins_url( 'public/js/retina.min.js', __FILE__ ) , array('jquery'));
+	// wp_enqueue_script('basecareer_retina_js');
 	
-	wp_register_script( 'basecareer_scrollReveal_js', plugins_url( 'public/js/scrollReveal.min.js', __FILE__ ) , array('basecareer_jquery_js'));
-	wp_enqueue_script('basecareer_scrollReveal_js');
+	// wp_register_script( 'basecareer_scrollReveal_js', plugins_url( 'public/js/scrollReveal.min.js', __FILE__ ) , array('jquery'));
+	// wp_enqueue_script('basecareer_scrollReveal_js');
 	
-	wp_register_script( 'basecareer_flexmenu_js', plugins_url( 'public/js/jquery.flexmenu.js', __FILE__ ) , array('basecareer_jquery_js'));
-	wp_enqueue_script('basecareer_flexmenu_js');
+	// wp_register_script( 'basecareer_flexmenu_js', plugins_url( 'public/js/jquery.flexmenu.js', __FILE__ ) , array('jquery'));
+	// wp_enqueue_script('basecareer_flexmenu_js');
 	
-	wp_localize_script( 'basecareer_custom_js', 'actionUrl', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+	// wp_localize_script( 'basecareer_custom_js', 'actionUrl', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	
 }
 
@@ -118,9 +117,9 @@ add_action('admin_post_nopriv_submit_candidate', array($referenceController, 'sa
 add_action('admin_post_submit_candidate', array($referenceController, 'saveReference'));
 
 
-$cvController = new Cv();
+// $cvController = new Cv();
 
-add_action('init', array($cvController, 'getCvByUserId'));
+// add_action('init', array($cvController, 'getCvByUserId'));
 
 add_action('admin_post_nopriv_update_cv', array($cvController, 'updateCV'));
 add_action('admin_post_submit_update_cv', array($cvController, 'updateCV'));
@@ -129,9 +128,10 @@ add_action('admin_post_submit_update_cv', array($cvController, 'updateCV'));
 add_filter( 'template_include', 'include_apply_job_template_function', 1 );
 add_filter( 'template_include', 'include_all_job_template_function', 1 );
 add_filter( 'template_include', 'include_submit_candidate_template_function', 1 );
+add_filter( 'template_include', 'include_cv_edit_template_function', 1 );
 
 function include_apply_job_template_function( $template_path ) {
-    if (is_page('apply-job') ) {
+    if (is_page('create-cv') ) {
         
 		$template_path = plugin_dir_path( __FILE__ ) . '/template/candidate_apply_job.php';
 			
@@ -165,6 +165,7 @@ function include_submit_candidate_template_function( $template_path ) {
     }
     return $template_path;
 }
+
 
 
 
