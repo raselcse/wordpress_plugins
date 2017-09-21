@@ -17,7 +17,13 @@
 		   //echo "test";
 		}
 		public function addNewCv($msg = null){
-		
+		   
+		    $isCvExist = $this->isCvExist();
+			$data = array();
+			$data['isCvExist']= $isCvExist;
+			$load              = new Basecareer_load();
+            $load->template('candidate_apply_job', $data);
+			// var_dump($data);
 		}
 		
 	
@@ -39,27 +45,8 @@
 			$candidate['professional_qualifications'] = $candidateModel->getByWhere('candidate_professional_qualification' , 'candidate_userid', $userid);
 			$candidate['references'] = $candidateModel->getByWhere('candidate_reference' , 'candidate_userid', $userid);
             $load->template('candidate_profile_edit' , $candidate);
-			
 		}
-		public function updateCV(){
-			$load                = new Basecareer_load();
-			$candidateModel      = $load->model('model_candidate');
-			$current_user = wp_get_current_user();
-			$userid = $current_user->ID;
-
-            $data             = array();
-			$data['name']  = $_REQUEST['name'];
-			$success_update = $candidateModel->updateWhere('candidate',$data, 'candidate_userid', $userid);
-			$msg = array();
-			if($success_update){
-				$msg['success_msg'] = "Data has been Updated";
-			}
-			else{
-				$msg['error_msg'] = "Not Updated";
-			}
-			$allPrescriptionOrder['allprescription'] = $labTestModel->getAllPrescription('candidate');
-			$load->view('prescription/edit_prescription' ,$allPrescriptionOrder, $msg);
-		}
+		
 		public function deleteCv(){
 			$load             	 = new Basecareer_load();
 			$labTestModel        = $load->model('model_candidate');
@@ -78,6 +65,17 @@
 				$msg['error_msg'] = "Not Deleted";
 			}
             $load->view('prescription/all_prescription' , $allPrescriptionOrder, $msg);
+		}
+		
+		public function isCvExist(){
+			$current_user = wp_get_current_user();
+			$userid = $current_user->ID;
+			global $wpdb;
+			$table = $wpdb->prefix.candidate;
+			$sql   = "SELECT count(id) as cvexist FROM $table WHERE candidate_userid=$userid";
+			
+			return $wpdb->get_results($sql);
+			
 		}
 	
 }

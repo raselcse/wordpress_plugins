@@ -52,26 +52,20 @@
 			$allPrescriptionOrder['allprescription'] = $labTestModel->getByIdPrescription('candidate_experience',$id);
             $load->view('prescription/edit_prescription' , $allPrescriptionOrder);
 		}
-		public function updateCandidateQualification(){
-			$id                       = $_REQUEST['id'];
-			$prescription_order_status = $_REQUEST['prescription_order_status'];
-
-            
-			$data             = array();
-			$data['prescription_order_status']  = $prescription_order_status;
-            var_dump($data['prescription_order_status']);
-			$load = new Pres_load();
-			$labTestModel = $load->model('model_candidate_academic_qualification');
-			$success_update = $labTestModel->updatePrescription('candidate_experience',$data,$id);
-			$msg = array();
-			if($success_update){
-				$msg['success_msg'] = "Data has been Updated";
-			}
-			else{
-				$msg['error_msg'] = "Not Updated";
-			}
-			$allPrescriptionOrder['allprescription'] = $labTestModel->getAllPrescription('candidate_experience');
-			$load->view('prescription/edit_prescription' ,$allPrescriptionOrder, $msg);
+		public function updateAcademicQualification(){
+			$current_user =  wp_get_current_user();
+			$candidate_userid = $current_user->ID;
+			$data['examination']  =$_REQUEST['examination'];
+			$data['school']=$_REQUEST['school'];
+			$data['board']=$_REQUEST['board'];
+			$data['subject']=$_REQUEST['subject'];
+			$data['result']=$_REQUEST['result'];
+			$data['subject_group']=$_REQUEST['subject_group'];
+			$data['passing_year']=$_REQUEST['passing_year'];
+			$load = new Basecareer_load();
+			$academicModel = $load->model('model_candidate_academic_qualification');
+			var_dump($data);
+			$updateAcademic = $academicModel->updateWhere('candidate_academic_qualification', $data , 'candidate_userid', $candidate_userid );
 		}
 		public function deleteCandidateQualification(){
 			$load             	 = new Basecareer_load();

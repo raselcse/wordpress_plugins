@@ -63,10 +63,20 @@ class Install_controller_basecareer
 			type varchar(255) NOT NULL,
 			category varchar(255) NOT NULL,
 			description text(1000) NOT NULL,
-			application_email varchar(255) NULL,
 			PRIMARY KEY  (id)
 		)";
 		dbDelta($sql_job);
+		
+		$table_apply_job = $this->tables['apply_job']; 
+		$sql_apply_job = "CREATE TABLE ".$table_job."(
+			id int(11) NOT NULL auto_increment,
+			job_id int(11) NOT NULL,
+			candidate_id int(11) NULL,
+			expected_salary_for_job double(100) NULL,
+			apply_date datetime(255) NOT NULL,
+			PRIMARY KEY  (id)
+		)";
+		dbDelta($sql_apply_job);
 		
 		$table_candidate_experience = $this->tables['candidate_experience'];
 		$sql_candidate_experience = "CREATE TABLE ".$table_candidate_experience." (
@@ -75,8 +85,8 @@ class Install_controller_basecareer
 			company_name varchar(255) NOT NULL,
 			designation varchar(255) NOT NULL,
 			responsibility varchar(255) NULL,
-			start_date datetime DEFAULT '0000-00-00 00:00:00' NULL,
-			end_date datetime DEFAULT '0000-00-00 00:00:00' NULL,
+			start_date datetime  NULL,
+			end_date datetime  NULL,
 			PRIMARY KEY  (id)
 		)";
 		dbDelta($sql_candidate_experience);

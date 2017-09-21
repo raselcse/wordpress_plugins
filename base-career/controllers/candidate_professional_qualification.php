@@ -22,17 +22,17 @@
 		
 	
 		public function saveProfessionalQualification(){
-			 $data             = array();
-			 $current_user =  wp_get_current_user();
-			 $data['candidate_userid']  =$current_user->ID;
-			 $data['title']  =$_REQUEST['title'];
-			 $data['institute_name']=$_REQUEST['institute_name'];
-			 $data['duration']=$_REQUEST['duration'];
-			 $data['address']=$_REQUEST['address'];
-			 
-			 $load = new Basecareer_load();
-			 $labTestModel = $load->model('model_candidate_professional_qualification');
-			 $success_insert = $labTestModel->save('candidate_professional_qualification' , $data);
+			$data             = array();
+			$current_user =  wp_get_current_user();
+			$data['candidate_userid']  =$current_user->ID;
+			$data['title']  =$_REQUEST['title'];
+			$data['institute_name']=$_REQUEST['institute_name'];
+			$data['duration']=$_REQUEST['duration'];
+			$data['address']=$_REQUEST['address'];
+
+			$load = new Basecareer_load();
+			$labTestModel = $load->model('model_candidate_professional_qualification');
+			$success_insert = $labTestModel->save('candidate_professional_qualification' , $data);
 
 				
 			header("Location:/solar/apply-job?msg=successfully create your Biodata");
@@ -46,25 +46,16 @@
             $load->view('prescription/edit_prescription' , $allPrescriptionOrder);
 		}
 		public function updateProfessionalQualification(){
-			$id                       = $_REQUEST['id'];
-			$prescription_order_status = $_REQUEST['prescription_order_status'];
-
-            
-			$data             = array();
-			$data['prescription_order_status']  = $prescription_order_status;
-            var_dump($data['prescription_order_status']);
-			$load = new Pres_load();
-			$labTestModel = $load->model('model_candidate_professional_qualification');
-			$success_update = $labTestModel->updatePrescription('candidate_professional_qualification',$data,$id);
-			$msg = array();
-			if($success_update){
-				$msg['success_msg'] = "Data has been Updated";
-			}
-			else{
-				$msg['error_msg'] = "Not Updated";
-			}
-			$allPrescriptionOrder['allprescription'] = $labTestModel->getAllPrescription('candidate_professional_qualification');
-			$load->view('prescription/edit_prescription' ,$allPrescriptionOrder, $msg);
+			$current_user =  wp_get_current_user();
+			$candidate_userid = $current_user->ID;
+			$data['title']  =$_REQUEST['title'];
+			$data['institute_name']=$_REQUEST['institute_name'];
+			$data['duration']=$_REQUEST['duration'];
+			$data['address']=$_REQUEST['address'];
+			$load = new Basecareer_load();
+			$professionalModel = $load->model('model_candidate_professional_qualification');
+			$updateProfessional = $professionalModel->updateWhere('candidate_professional_qualification', $data , 'candidate_userid', $candidate_userid );
+		
 		}
 		public function deleteProfessionalQualification(){
 			$load             	 = new Basecareer_load();

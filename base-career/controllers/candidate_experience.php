@@ -82,26 +82,18 @@
 			$allPrescriptionOrder['allprescription'] = $labTestModel->getByIdPrescription('candidate_experience',$id);
             $load->view('prescription/edit_prescription' , $allPrescriptionOrder);
 		}
-		public function updateCandidate(){
-			$id                       = $_REQUEST['id'];
-			$prescription_order_status = $_REQUEST['prescription_order_status'];
-
-            
-			$data             = array();
-			$data['prescription_order_status']  = $prescription_order_status;
-            var_dump($data['prescription_order_status']);
-			$load = new Pres_load();
-			$labTestModel = $load->model('model_candidate_experience');
-			$success_update = $labTestModel->updatePrescription('candidate_experience',$data,$id);
-			$msg = array();
-			if($success_update){
-				$msg['success_msg'] = "Data has been Updated";
-			}
-			else{
-				$msg['error_msg'] = "Not Updated";
-			}
-			$allPrescriptionOrder['allprescription'] = $labTestModel->getAllPrescription('candidate_experience');
-			$load->view('prescription/edit_prescription' ,$allPrescriptionOrder, $msg);
+		public function updateExperience(){
+			$current_user =  wp_get_current_user();
+			$candidate_userid = $current_user->ID;
+			$data['company_name']  =$_REQUEST['company_name'];
+			$data['designation']=$_REQUEST['designation'];
+			$data['responsibility']=$_REQUEST['responsibilities'];
+			$data['start_date']=$_REQUEST['start_date'];
+			$data['end_date']=$_REQUEST['end_date'];
+			$load = new Basecareer_load();
+			$experienceModel = $load->model('model_candidate_experience');
+			$updateExperience = $experienceModel->updateWhere('candidate_experience', $data , 'candidate_userid', $candidate_userid );
+			
 		}
 		public function deleteCandidateExperience(){
 			$load             	 = new Basecareer_load();

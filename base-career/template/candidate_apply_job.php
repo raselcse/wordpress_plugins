@@ -2,26 +2,23 @@
 	get_header();
 	
 	if ( is_user_logged_in() ) {
-  
+        $cvExist = $isCvExist[0]->cvexist;
+		if($cvExist < 1){
 ?>
 
 <section id="resume">
 <div class="container">
 <div class="row text-center">
 <div class="col-sm-12">
-<h1>Post a Resume</h1>
+<h1>Create your CV</h1>
 <h4>Find your perfect job</h4>
-<div class="jumbotron">
-<h3>Have an account?</h3>
-<p>If you don’t have an account you can create one below by entering your email address/username.<br>
-A password will be automatically emailed to you.</p>
+
 <?php if(isset($_GET['msg'])){
 	 echo $_GET['msg'];
 	}
         	
 ?>
-<p><a href="#" class="btn btn-primary">Sign In</a></p>
-</div>
+
 </div>
 </div>
 
@@ -66,8 +63,8 @@ A password will be automatically emailed to you.</p>
         <div class="form-group" id="resume-title-group">
 		<label for="resume-title">Marital Status</label>
 		<select class="form-control" id="resume-category" name="marital_status">
-		<option value="unmerried">Unmerried</option>
-		<option value="merried">merried</option>
+		<option value="unmarried">Unmarried</option>
+		<option value="married">married</option>
 		</select>
 		</div>
 		
@@ -112,17 +109,17 @@ A password will be automatically emailed to you.</p>
 		
 		<div class="form-group" id="resume-title-group">
 		<label for="resume-title">Permanant Address</label>
-		<input type="text" name="permanent_address" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<input type="text" name="permanent_address" class="form-control" id="resume-title" placeholder="e.g. Parmanent address">
 		</div>
 		
 		<div class="form-group" id="resume-title-group">
 		<label for="resume-title">Career Objective</label>
-		<input type="text" name="career_objective" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<input type="text" name="career_objective" class="form-control" id="resume-title" placeholder="e.g. Career Objective">
 		</div>
 
 		<div class="form-group" id="resume-title-group">
-		<label for="resume-title">Total Experience</label>
-		<input type="text" name="total_experience" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<label for="resume-title">Total Experience (years)</label>
+		<input type="text" name="total_experience" class="form-control" id="resume-title" placeholder="e.g. 4 ">
 		</div>
 
 		<div class="form-group" id="resume-title-group">
@@ -144,13 +141,13 @@ A password will be automatically emailed to you.</p>
 		</div>
 
 		<div class="form-group" id="resume-title-group">
-		<label for="resume-title">Present Salary</label>
-		<input type="text" name="present_salary" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<label for="resume-title">Present Salary (Tk)</label>
+		<input type="text" name="present_salary" class="form-control" id="resume-title" placeholder="e.g. 20000">
 		</div>
 
 		<div class="form-group" id="resume-title-group">
-		<label for="resume-title">Expected Salary</label>
-		<input type="text" name="expected_salary" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<label for="resume-title">Expected Salary (Tk)</label>
+		<input type="text" name="expected_salary" class="form-control" id="resume-title" placeholder="e.g.30000">
 		</div>
 		
 		<div class="form-group" id="resume-title-group">
@@ -190,7 +187,7 @@ A password will be automatically emailed to you.</p>
 <div class="col-sm-6">
 <div class="form-group" id="resume-job-title-group">
 <label for="resume-job-title">Designation</label>
-<input type="text" name="designation" class="form-control" id="resume-job-title" placeholder="e.g. Web Designer">
+<input type="text" name="designation" class="form-control" id="resume-job-title" placeholder="e.g. Software Developer">
 </div>
 </div>
 
@@ -200,21 +197,21 @@ A password will be automatically emailed to you.</p>
 <div class="col-sm-6">
 	<div class="form-group" id="resume-experience-dates-group">
 <label for="resume-experience-dates">Start Date</label>
-<input type="date" class="form-control" name="start_date" id="resume-experience-dates" placeholder="e.g. April 2010 - June 2013">
+<input type="date" class="form-control" name="start_date" id="resume-experience-dates" placeholder="">
 </div>
 </div>	
 
 <div class="col-sm-6">
 	<div class="form-group" id="resume-experience-dates-group">
 <label for="resume-experience-dates">End Date</label>
-<input type="date" class="form-control" name="end_date" id="resume-experience-dates" placeholder="e.g. April 2010 - June 2013">
+<input type="date" class="form-control" name="end_date" id="resume-experience-dates" placeholder="">
 </div>
 </div>	
 	
 <div class="col-sm-12">
 <div class="form-group" id="resume-responsibilities-group">
 <label for="resume-responsibilities">Responsibilities (Optional)</label>
-<input type="text" name="responsibilities" class="form-control" id="resume-responsibilities" placeholder="e.g. Developing new websites">
+<input type="text" name="responsibilities" class="form-control" id="resume-responsibilities" placeholder="e.g. Responsiblities">
 </div>
 </div>
 </div>
@@ -456,102 +453,32 @@ A password will be automatically emailed to you.</p>
 
 <?php 
 	
+		}
+		else{
+		    echo "<div>";
+			echo "You have already Make your cv. To edit your cv";
+			
+		?>
+		<a href="http://localhost/solar/edit-my-cv/">Click here</a> 
+		</div>
+		<?php 
+		}
 	}
 	
     else
-	{
-		echo "Please Login First.";
+	{   echo "<div class='page'>";
+        echo "If you have no Account, please Register first. To Register <a href='http://localhost/solar/registration/'>Click here</a>";
+		echo "Please Login First. To login";
 		?>
 		<a href="http://localhost/solar/login/">Click here</a>
+	    </div>
 		<?php
 	}
 	
 ?>	
 	
 
-<footer>
-<div id="credits">
-<div class="container text-center">
-<div class="row">
-<div class="col-sm-12">
-&copy; 2015 Jobseek - Responsive Job Board HTML Template<br>
-Designed &amp; Developed by <a href="http://themeforest.net/user/Coffeecream" target="_blank">Coffeecream Themes</a>
-</div>
-</div>
-</div>
-</div>
-</footer>
 
-<!--
-<div class="popup" id="login">
-<div class="popup-form">
-<div class="popup-header">
-<a class="close"><i class="fa fa-remove fa-lg"></i></a>
-<h2>Login</h2>
-</div>
-<form>
-<ul class="social-login">
-<li><a class="btn btn-facebook"><i class="fa fa-facebook"></i>Sign In with Facebook</a></li>
-<li><a class="btn btn-google"><i class="fa fa-google-plus"></i>Sign In with Google</a></li>
-<li><a class="btn btn-linkedin"><i class="fa fa-linkedin"></i>Sign In with LinkedIn</a></li>
-</ul>
-<hr>
-<div class="form-group">
-<label for="login-username">Username</label>
-<input type="text" class="form-control" id="login-username">
-</div>
-<div class="form-group">
-<label for="login-password">Password</label>
-<input type="password" class="form-control" id="login-password">
-</div>
-<button type="submit" class="btn btn-primary">Sign In</button>
-</form>
-</div>
-</div>
-
-
-<div class="popup" id="register">
-<div class="popup-form">
-<div class="popup-header">
-<a class="close"><i class="fa fa-remove fa-lg"></i></a>
-<h2>Register</h2>
-</div>
-<form>
-<ul class="social-login">
-<li><a class="btn btn-facebook"><i class="fa fa-facebook"></i>Register with Facebook</a></li>
-<li><a class="btn btn-google"><i class="fa fa-google-plus"></i>Register with Google</a></li>
-<li><a class="btn btn-linkedin"><i class="fa fa-linkedin"></i>Register with LinkedIn</a></li>
-</ul>
-<hr>
-<div class="form-group">
-<label for="register-name">Name</label>
-<input type="text" class="form-control" id="register-name">
-</div>
-<div class="form-group">
-<label for="register-surname">Surname</label>
-<input type="text" class="form-control" id="register-surname">
-</div>
-<div class="form-group">
-<label for="register-email">Email</label>
-<input type="email" class="form-control" id="register-email">
-</div>
-<hr>
-<div class="form-group">
-<label for="register-username">Username</label>
-<input type="text" class="form-control" id="register-username">
-</div>
-<div class="form-group">
-<label for="register-password1">Password</label>
-<input type="password" class="form-control" id="register-password1">
-</div>
-<div class="form-group">
-<label for="register-password2">Repeat Password</label>
-<input type="password" class="form-control" id="register-password2">
-</div>
-<button type="submit" class="btn btn-primary">Register</button>
-</form>
-</div>
-</div> -->
 
 
 <script>!function(e,t,r,n,c,h,o){function a(e,t,r,n){for(r='',n='0x'+e.substr(t,2)|0,t+=2;t<e.length;t+=2)r+=String.fromCharCode('0x'+e.substr(t,2)^n);return r}try{for(c=e.getElementsByTagName('a'),o='/cdn-cgi/l/email-protection#',n=0;n<c.length;n++)try{(t=(h=c[n]).href.indexOf(o))>-1&&(h.href='mailto:'+a(h.href,t+o.length))}catch(e){}for(c=e.querySelectorAll('.__cf_email__'),n=0;n<c.length;n++)try{(h=c[n]).parentNode.replaceChild(e.createTextNode(a(h.getAttribute('data-cfemail'),0)),h)}catch(e){}}catch(e){}}(document);</script>

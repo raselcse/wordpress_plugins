@@ -85,7 +85,7 @@
 			$designation_company_address = $reference->designation_company_address;
 			$relationship = $reference->relationship;
 			$mobile = $reference->mobile;
-			$email = $reference->email;
+			$emailReference = $reference->email;
 			
 		}
 	}
@@ -103,7 +103,7 @@
 
 		<div class="form-group" id="resume-title-group">
 		<label for="resume-title">Date of Birth</label>
-		<input type="date" name="date_of_birth" value ="<?php echo $date_of_birth; ?>" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<input type="date" name="date_of_birth" value ="<?php echo $date_of_birth; ?>" class="form-control" id="resume-title" placeholder="e.g. Date of birth">
 		</div>
 
 		<div class="form-group" id="resume-title-group">
@@ -136,11 +136,11 @@
 		<label for="resume-title">Marital Status</label>
 		<select class="form-control" id="resume-category" name="marital_status">
 		<?php 
-				$selected0 = ( $marital_status ==  'unmerried') ? 'selected' : ''; 
-				$selected1 = ( $marital_status ==  'merried') ? 'selected' : ''; 
+				$selected0 = ( $marital_status ==  'unmarried') ? 'selected' : ''; 
+				$selected1 = ( $marital_status ==  'married') ? 'selected' : ''; 
 			?>
-		<option value="unmerried" <?php echo $selected0 ?> >Unmerried</option>
-		<option value="merried" <?php echo $selected0 ?> >merried</option>
+		<option value="unmarried" <?php echo $selected0 ?> >Unmarried</option>
+		<option value="married" <?php echo $selected0 ?> >married</option>
 		</select>
 		</div>
 		
@@ -164,7 +164,7 @@
 
 		<div class="form-group" id="resume-title-group">
 		<label for="resume-title">National Id or Passport</label>
-		<input type="text" name="nationalid_or_passport" value ="<?php echo $nationalid_or_passport; ?>"  class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<input type="text" name="nationalid_or_passport" value ="<?php echo $nationalid_or_passport; ?>"  class="form-control" id="resume-title" placeholder="e.g. National Id or Passport">
 		</div>
         
 		<div class="form-group" id="resume-title-group">
@@ -184,22 +184,22 @@
 	
 		<div class="form-group" id="resume-title-group">
 		<label for="resume-title">Present Address</label>
-		<input type="text" name="present_address" value ="<?php echo $present_address; ?>" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<input type="text" name="present_address" value ="<?php echo $present_address; ?>" class="form-control" id="resume-title" placeholder="e.g. Persent Address">
 		</div>
 		
 		<div class="form-group" id="resume-title-group">
 		<label for="resume-title">Permanant Address</label>
-		<input type="text" name="permanent_address"  value ="<?php echo $permanent_address; ?>"class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<input type="text" name="permanent_address"  value ="<?php echo $permanent_address; ?>"class="form-control" id="resume-title" placeholder="e.g. Permanant Address">
 		</div>
 		
 		<div class="form-group" id="resume-title-group">
 		<label for="resume-title">Career Objective</label>
-		<input type="text" name="career_objective"  value ="<?php echo $career_objective; ?>" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<input type="text" name="career_objective"  value ="<?php echo $career_objective; ?>" class="form-control" id="resume-title" placeholder="e.g. Career Objective">
 		</div>
 
 		<div class="form-group" id="resume-title-group">
-		<label for="resume-title">Total Experience</label>
-		<input type="text" name="total_experience" value ="<?php echo $total_experience; ?>" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<label for="resume-title">Total Experience (Years)</label>
+		<input type="text" name="total_experience" value ="<?php echo $total_experience; ?>" class="form-control" id="resume-title" placeholder="e.g. 4">
 		</div>
 
 		<div class="form-group" id="resume-title-group">
@@ -230,13 +230,13 @@
 		</div>
 
 		<div class="form-group" id="resume-title-group">
-		<label for="resume-title">Present Salary</label>
-		<input type="text" name="present_salary" value ="<?php echo $present_salary; ?>" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<label for="resume-title">Present Salary (Tk)</label>
+		<input type="text" name="present_salary" value ="<?php echo $present_salary; ?>" class="form-control" id="resume-title" placeholder="e.g. 20000">
 		</div>
 
 		<div class="form-group" id="resume-title-group">
-		<label for="resume-title">Expected Salary</label>
-		<input type="text" name="expected_salary" value ="<?php echo $expected_salary; ?>" class="form-control" id="resume-title" placeholder="e.g. Web Designer">
+		<label for="resume-title">Expected Salary (Tk)</label>
+		<input type="text" name="expected_salary" value ="<?php echo $expected_salary; ?>" class="form-control" id="resume-title" placeholder="e.g. 30000">
 		</div>
 		
 		<div class="form-group" id="resume-title-group">
@@ -292,7 +292,7 @@
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-experience-dates-group">
 			<label for="resume-experience-dates">Start Date</label>
-			<input type="date" class="form-control" name="start_date" value ="<?php echo $start_date; ?>" id="resume-experience-dates" placeholder="e.g. April 2010 - June 2013">
+			<input type="date" class="form-control" name="start_date" value ="<?php echo $start_date; ?>" id="resume-experience-dates">
 		</div>
 	</div>	
 
@@ -306,7 +306,7 @@
 	<div class="col-sm-12">
 		<div class="form-group" id="resume-responsibilities-group">
 		<label for="resume-responsibilities">Responsibilities (Optional)</label>
-		<input type="text" name="responsibilities" value ="<?php echo $responsibility; ?>" class="form-control" id="resume-responsibilities" placeholder="e.g. Developing new websites">
+		<input type="text" name="responsibilities" value ="<?php echo $responsibility; ?>" class="form-control" id="resume-responsibilities" placeholder="e.g. Responsibilities">
 		</div>
 	</div>
 </div>
@@ -360,7 +360,6 @@
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-education-dates-group">
 		<label for="resume-education-dates">Board</label>
-		<input type="text" class="form-control" name="board" value ="<?php echo $board; ?>" id="resume-education-dates" placeholder="e.g. April 2010 - June 2013">
 		
 		<select class="form-control" id="resume-category" name="board">
 				<?php 
@@ -373,7 +372,7 @@
 				<option value="chittagong" <?php echo $selected1 ?>>Chittagong</option>
 				<option value="rajshahi" <?php echo $selected2 ?>>Rajshahi</option>
 				<option value="sylhet" <?php echo $selected3 ?>>Sylhet</option>
-			</select>
+		</select>
 		
 		</div>
 	</div>
@@ -381,27 +380,27 @@
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-education-dates-group">
 		<label for="resume-education-dates">Subject</label>
-		<input type="text" class="form-control" name="subject" value ="<?php echo $subject; ?>" id="resume-education-dates" placeholder="e.g. April 2010 - June 2013">
+		<input type="text" class="form-control" name="subject" value ="<?php echo $subject; ?>" id="resume-education-dates" placeholder="e.g. CSE">
 		</div>
 	</div>
 	
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-education-dates-group">
 		<label for="resume-education-dates">Result</label>
-		<input type="text" class="form-control" name="result" value ="<?php echo $result; ?>" id="resume-education-dates" placeholder="e.g. April 2010 - June 2013">
+		<input type="text" class="form-control" name="result" value ="<?php echo $result; ?>" id="resume-education-dates" placeholder="e.g. 3.4">
 		</div>
 	</div>
 	
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-notes-group">
 		<label for="resume-notes">Group</label>
-		<input type="text" class="form-control" name="subject_group" value ="<?php echo $subject_group; ?>" id="resume-notes" placeholder="Any achievements">
+		<input type="text" class="form-control" name="subject_group" value ="<?php echo $subject_group; ?>" id="resume-notes" placeholder="Science">
 		</div>
 	</div>
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-notes-group">
 		<label for="resume-notes">Passing Year</label>
-		<input type="text" class="form-control" name="passing_year" value ="<?php echo $passing_year; ?>" id="resume-notes" placeholder="Any achievements">
+		<input type="text" class="form-control" name="passing_year" value ="<?php echo $passing_year; ?>" id="resume-notes" placeholder="2007">
 		</div>
 	</div>
 </div>
@@ -429,29 +428,29 @@
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-school-group">
 		<label for="resume-school">Title</label>
-		<input type="text" class="form-control" name= "title" value ="<?php echo $title; ?>" id="resume-school" placeholder="School name, city and country">
+		<input type="text" class="form-control" name= "title" value ="<?php echo $title; ?>" id="resume-school" placeholder="Basic Security">
 		</div>
 	</div>	
 	
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-school-group">
 		<label for="resume-school">Institute Name</label>
-		<input type="text" class="form-control" name="institute_name" value ="<?php echo $institute_name; ?>" id="resume-school" placeholder="School name, city and country">
+		<input type="text" class="form-control" name="institute_name" value ="<?php echo $institute_name; ?>" id="resume-school" placeholder="Web Craft">
 		</div>
 	</div>
 
 
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-education-dates-group">
-		<label for="resume-education-dates">Duration</label>
-		<input type="text" class="form-control" name="duration" value ="<?php echo $duration; ?>" id="resume-education-dates" placeholder="e.g. April 2010 - June 2013">
+		<label for="resume-education-dates">Duration (Month)</label>
+		<input type="text" class="form-control" name="duration" value ="<?php echo $duration; ?>" id="resume-education-dates" placeholder="e.g. 6">
 		</div>
 	</div>
 	
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-education-dates-group">
 		<label for="resume-education-dates">Address</label>
-		<input type="text" class="form-control" name="address" value ="<?php echo $address; ?>" id="resume-education-dates" placeholder="e.g. April 2010 - June 2013">
+		<input type="text" class="form-control" name="address" value ="<?php echo $address; ?>" id="resume-education-dates" placeholder="e.g. Mohakhali, Dhaka">
 		</div>
 	</div>
 	
@@ -480,7 +479,7 @@
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-school-group">
 		<label for="resume-school">Full Name</label>
-		<input type="text" class="form-control" name="full_name" value ="<?php echo $full_name; ?>" id="resume-school" placeholder="School name, city and country">
+		<input type="text" class="form-control" name="full_name" value ="<?php echo $full_name; ?>" id="resume-school" placeholder="Full Name">
 		</div>
 	</div>	
 
@@ -488,28 +487,28 @@
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-education-dates-group">
 		<label for="resume-education-dates">Designation and Full Company Address</label>
-		<input type="text" class="form-control" name="designation_company_address" value ="<?php echo $designation_company_address; ?>" id="resume-education-dates" placeholder="e.g. April 2010 - June 2013">
+		<input type="text" class="form-control" name="designation_company_address" value ="<?php echo $designation_company_address; ?>" id="resume-education-dates" placeholder="e.g. Head of Dept, SUST, Sylhet">
 		</div>
 	</div>
 	
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-education-dates-group">
 		<label for="resume-education-dates">Relationship</label>
-		<input type="text" class="form-control" name="relationship" value ="<?php echo $relationship; ?>" id="resume-education-dates" placeholder="e.g. April 2010 - June 2013">
+		<input type="text" class="form-control" name="relationship" value ="<?php echo $relationship; ?>" id="resume-education-dates" placeholder="e.g. Teacher">
 		</div>
 	</div>
 	
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-education-dates-group">
 		<label for="resume-education-dates">Mobile</label>
-		<input type="text" class="form-control" name="mobile" value ="<?php echo $mobile; ?>" id="resume-education-dates" placeholder="e.g. April 2010 - June 2013">
+		<input type="text" class="form-control" name="mobile" value ="<?php echo $mobile; ?>" id="resume-education-dates" placeholder="e.g. 01711 xxxxxx">
 		</div>
 	</div>
 	
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-notes-group">
 		<label for="resume-notes">Email</label>
-		<input type="text" class="form-control" name="email" value ="<?php echo $email; ?>" id="resume-notes" placeholder="Any achievements">
+		<input type="text" class="form-control" name="email-reference" value ="<?php echo $emailReference; ?>" id="resume-notes" placeholder="Email">
 		</div>
 	</div>
 </div>
@@ -569,28 +568,19 @@
  }
  
     else
-	{
-		echo "Please Login First.";
+	{   echo "<div class='page'>";
+        echo "If you have no Account, please Register first. To Register <a href='http://localhost/solar/registration/'>Click here</a>";
+		echo "Please Login First. To login";
 		?>
 		<a href="http://localhost/solar/login/">Click here</a>
+	    </div>
 		<?php
 	}
 	
 ?>	
 
 
-<footer>
-<div id="credits">
-<div class="container text-center">
-<div class="row">
-<div class="col-sm-12">
-&copy; 2015 Jobseek - Responsive Job Board HTML Template<br>
-Designed &amp; Developed by <a href="http://themeforest.net/user/Coffeecream" target="_blank">Coffeecream Themes</a>
-</div>
-</div>
-</div>
-</div>
-</footer>
+
 
 
 

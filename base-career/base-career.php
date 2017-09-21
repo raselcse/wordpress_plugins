@@ -11,7 +11,7 @@ Author URI: http://www.oployeelabs.com
 register_activation_hook(__FILE__,'basecareer_admin_activator');
 register_deactivation_hook(__FILE__,'basecareer_admin_deactivator');
 
-
+include_once dirname(__FILE__).'/class/candidateClass.php';
 include_once dirname(__FILE__).'/core/controller/basecareer_controller.php';
 include_once dirname(__FILE__).'/core/controller/basecareer_load.php';
 include_once dirname(__FILE__).'/core/database/basecareer_database.php';
@@ -117,36 +117,43 @@ add_action('admin_post_nopriv_submit_candidate', array($referenceController, 'sa
 add_action('admin_post_submit_candidate', array($referenceController, 'saveReference'));
 
 
-// $cvController = new Cv();
+$cvController = new Cv();
 
-// add_action('init', array($cvController, 'getCvByUserId'));
+add_shortcode('cv-edit', array($cvController, 'getCvByUserId'));
+add_shortcode('new-cv', array($cvController, 'addNewCv'));
 
-add_action('admin_post_nopriv_update_cv', array($cvController, 'updateCV'));
-add_action('admin_post_submit_update_cv', array($cvController, 'updateCV'));
+add_action('admin_post_nopriv_update_cv', array($candidateController, 'updateCandidate'));
+add_action('admin_post_update_cv', array($candidateController, 'updateCandidate'));
+
+add_action('admin_post_nopriv_update_cv', array($experienceController, 'updateExperience'));
+add_action('admin_post_update_cv', array($experienceController, 'updateExperience'));
+
+add_action('admin_post_nopriv_update_cv', array($academicQualificationController, 'updateAcademicQualification'));
+add_action('admin_post_update_cv', array($academicQualificationController, 'updateAcademicQualification'));
+
+add_action('admin_post_nopriv_update_cv', array($professionalQualficationController, 'updateProfessionalQualification'));
+add_action('admin_post_update_cv', array($professionalQualficationController, 'updateProfessionalQualification'));
+
+add_action('admin_post_nopriv_update_cv', array($referenceController, 'updateReference'));
+add_action('admin_post_update_cv', array($referenceController, 'updateReference'));
 
 
-add_filter( 'template_include', 'include_apply_job_template_function', 1 );
+
+
+//add_filter( 'template_include', 'include_apply_job_template_function', 1 );
 add_filter( 'template_include', 'include_all_job_template_function', 1 );
 add_filter( 'template_include', 'include_submit_candidate_template_function', 1 );
-add_filter( 'template_include', 'include_cv_edit_template_function', 1 );
 
-function include_apply_job_template_function( $template_path ) {
-    if (is_page('create-cv') ) {
+// function include_apply_job_template_function( $template_path ) {
+    // if (is_page('create-cv') ) {
         
-		$template_path = plugin_dir_path( __FILE__ ) . '/template/candidate_apply_job.php';
+		// $template_path = plugin_dir_path( __FILE__ ) . '/template/candidate_apply_job.php';
 			
-    }
-    return $template_path;
-}
+    // }
+    // return $template_path;
+// }
 
-function include_cv_edit_template_function( $template_path ) {
-    if (is_page('edit-my-cv') ) {
-        
-		$template_path = plugin_dir_path( __FILE__ ) . '/template/candidate_profile_edit.php';
-			
-    }
-    return $template_path;
-}
+
 
 function include_all_job_template_function( $template_path ) {
     if (is_page('all-job') ) {

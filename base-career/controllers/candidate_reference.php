@@ -47,23 +47,19 @@
 			$allPrescriptionOrder['allprescription'] = $labTestModel->getByIdPrescription('candidate_reference',$id);
             $load->view('prescription/edit_prescription' , $allPrescriptionOrder);
 		}
-		public function updateCandidate(){
-			$id                       = $_REQUEST['id'];
-			$prescription_order_status = $_REQUEST['prescription_order_status'];
+		public function updateReference(){
 			$data             = array();
-			$data['prescription_order_status']  = $prescription_order_status;
-			$load = new Pres_load();
-			$labTestModel = $load->model('model_candidate_reference');
-			$success_update = $labTestModel->updatePrescription('candidate_reference',$data,$id);
-			$msg = array();
-			if($success_update){
-				$msg['success_msg'] = "Data has been Updated";
-			}
-			else{
-				$msg['error_msg'] = "Not Updated";
-			}
-			$allPrescriptionOrder['allprescription'] = $labTestModel->getAllPrescription('candidate_reference');
-			$load->view('prescription/edit_prescription' ,$allPrescriptionOrder, $msg);
+			$current_user =  wp_get_current_user();
+			$candidate_userid = $current_user->ID;
+			$data['full_name']  =$_REQUEST['full_name'];
+			$data['designation_company_address']=$_REQUEST['designation_company_address'];
+			$data['relationship']=$_REQUEST['relationship'];
+			$data['mobile']=$_REQUEST['mobile'];
+			$data['email']=$_REQUEST['email-reference'];
+			$load = new Basecareer_load();
+			$referenceModel = $load->model('model_candidate_reference');
+			$referenceModel->updateWhere('candidate_reference', $data , 'candidate_userid', $candidate_userid );
+			header("Location:/solar/edit-my-cv?msg=successfully create Update your CV");
 		}
 		public function deleteCandidateReference(){
 			$load             	 = new Basecareer_load();
