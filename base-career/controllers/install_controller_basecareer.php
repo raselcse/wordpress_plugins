@@ -16,6 +16,7 @@ class Install_controller_basecareer
 			'candidate_professional_qualification' 	=> $wpdb->prefix.'candidate_professional_qualification',
 			'candidate_reference' 	=> $wpdb->prefix.'candidate_reference',
 			'candidate_file' 	=> $wpdb->prefix.'candidate_file',
+			'apply_job' 	=> $wpdb->prefix.'apply_job',
 		);
 	}
 	
@@ -68,12 +69,12 @@ class Install_controller_basecareer
 		dbDelta($sql_job);
 		
 		$table_apply_job = $this->tables['apply_job']; 
-		$sql_apply_job = "CREATE TABLE ".$table_job."(
+		$sql_apply_job =  "CREATE TABLE ".$table_apply_job."(
 			id int(11) NOT NULL auto_increment,
 			job_id int(11) NOT NULL,
-			candidate_id int(11) NULL,
-			expected_salary_for_job double(100) NULL,
-			apply_date datetime(255) NOT NULL,
+			candidate_id int(11) NOT NULL,
+			expected_salary float(20) NULL,
+			apply_date datetime NULL,
 			PRIMARY KEY  (id)
 		)";
 		dbDelta($sql_apply_job);
@@ -99,7 +100,7 @@ class Install_controller_basecareer
 			school varchar(255) NULL,
 			board varchar(255) NULL,
 			subject varchar(255) NULL,
-			result float(50) NULL,
+			result float(10) NULL,
 			subject_group varchar(255) NULL,
 			passing_year year(50) NULL,
 			PRIMARY KEY  (id)
@@ -140,6 +141,7 @@ class Install_controller_basecareer
 			PRIMARY KEY  (id)
 		)";
 		dbDelta($sql_candidate_file);
+	
 		
 	
 	} 

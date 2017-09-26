@@ -12,7 +12,7 @@
 				<h1>Edit Resume</h1>
 				<div class="">
 				<?php if(isset($_GET['msg'])){
-					 echo $_GET['msg'];
+					 echo "<div id='submit-message'>".$_GET['msg']."</div>";
 					}
 							
 				?>
@@ -89,10 +89,20 @@
 			
 		}
 	}
+	
+	if(isset($files)){
+		foreach( $files as $file ) {
+			$resume = $file->resume;
+			$cover_letter = $file->cover_letter;
+			$picture = $file->picture;
+			
+		}
+	}
+	
 
 ?>
 
-<form action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post" enctype="multipart/form-data"> 
+<form action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post" novalidate="novalidate" enctype="multipart/form-data"> 
 <div class="row">
 	<div class="col-sm-6">
 		<div class="form-group" id="resume-name-group">
@@ -532,26 +542,30 @@
 </div>
 </div>
 <div class="row">
-<div class="col-sm-12">
+	<div class="col-sm-12">
 
-<div class="form-group" id="resume-file-group">
-	<label for="resume-file">Upload Your Picture</label>
-	<input type="file" name="candidate_picture"  id="resume-file">
-	<p class="help-block">Optionally upload your Picture for employers to view. Max. file size: 300kb.</p>
-</div>
+		<div class="form-group" id="resume-file-group">
+		<label for="picture-file">Upload Your Picture</label>
+		
+		<img height ="200px" width="200px" src="<?php echo site_url();?>/<?php echo $picture ?>"/>
+		<input type="file" name="candidate_picture" id="picture_file">
+		<p class="">Optionally upload your Picture for employers to view. Max. file size: 300kb.</p>
+		</div>
 
-<div class="form-group" id="resume-file-group">
-	<label for="resume-file">Upload Your Cover Letter</label>
-	<input type="file" name="cover_letter" id="resume-file">
-	<p class="help-block">Optionally upload your Cover Letter for employers to view. Max. file size: 5 MB.</p>
-</div>
-	
-<div class="form-group" id="resume-file-group">
-	<label for="resume-file">Upload Your CV</label>
-	<input type="file" name="cover_letter" id="resume-file">
-	<p class="help-block">Optionally upload your CV for employers to view. Max. file size: 5 MB.</p>
-</div>
-</div>
+		<div class="form-group" id="resume-file-group">
+			<label for="resume-file">Upload Your Cover Letter</label>
+			<span>Your Cover Letter</span> <a href="<?php site_url()?>/<?php echo $cover_letter ?>">Download</a>
+			<input type="file" name="candidate_cover_letter" id="resume-file">
+			<p class="help-block">Optionally upload your Cover Letter for employers to view. Max. file size: 5 MB.</p>
+		</div>
+			
+		<div class="form-group" id="resume-file-group">
+		<label for="resume-file">Upload Your CV</label>
+		<span>Your CV </span> <a href="<?php site_url()?>/<?php echo $resume ?>">Download</a>
+		<input type="file" name="candidate_cv_file" id="resume-file" >
+		<p class="help-block">Optionally upload your CV for employers to view. Max. file size: 5 MB.</p>
+		</div>
+	</div>
 </div>
 
 <div class="row text-center">
@@ -568,21 +582,19 @@
  }
  
     else
-	{   echo "<div class='page'>";
-        echo "If you have no Account, please Register first. To Register <a href='http://localhost/solar/registration/'>Click here</a>";
-		echo "Please Login First. To login";
-		?>
-		<a href="http://localhost/solar/login/">Click here</a>
-	    </div>
+	{ 
+      echo "<div class='page'>";
+				echo "If you have no Account, please Register first. To Register";
+				?>
+				<a href='<?php echo site_url();?>/registration/'>Click here</a>;
+				<?php 
+				echo "Please Login First. To login";
+				?>
+				<a href="<?php echo site_url();?>/login/">Click here</a>
+			</div>
 		<?php
 	}
 	
 ?>	
 
-
-
-
-
-
-<script>!function(e,t,r,n,c,h,o){function a(e,t,r,n){for(r='',n='0x'+e.substr(t,2)|0,t+=2;t<e.length;t+=2)r+=String.fromCharCode('0x'+e.substr(t,2)^n);return r}try{for(c=e.getElementsByTagName('a'),o='/cdn-cgi/l/email-protection#',n=0;n<c.length;n++)try{(t=(h=c[n]).href.indexOf(o))>-1&&(h.href='mailto:'+a(h.href,t+o.length))}catch(e){}for(c=e.querySelectorAll('.__cf_email__'),n=0;n<c.length;n++)try{(h=c[n]).parentNode.replaceChild(e.createTextNode(a(h.getAttribute('data-cfemail'),0)),h)}catch(e){}}catch(e){}}(document);</script>
 <?php get_footer() ?>

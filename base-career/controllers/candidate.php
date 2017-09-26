@@ -94,7 +94,7 @@
 			 $labTestModel = $load->model('model_candidate');
 			 $success_insert = $labTestModel->save('candidate' , $data);		
 
-			header("Location:/solar/apply-job?msg=successfully create your Biodata");
+			header("Location:".site_url()."/apply-job?msg=successfully create your Biodata");
 		}
 		
 	
@@ -133,7 +133,7 @@
 			$candidateeModel = $load->model('model_candidate');
 			//var_dump($data);
 			$updateCandidate = $candidateeModel->updateWhere('candidate', $data , 'candidate_userid', $candidate_userid );
-			//header("Location:/solar/edit-my-cv?msg=successfully create Update your CV");
+			header("Location:".site_url()."/edit-my-cv?msg=successfully create Update your CV");
 		}
 		public function deleteCandidate(){
 			$load             	 = new Basecareer_load();

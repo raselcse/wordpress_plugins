@@ -35,7 +35,7 @@
 			 $success_insert = $labTestModel->save('candidate_reference' , $data);
 
 				
-			header("Location:/solar/apply-job?msg=successfully create your Biodata");
+			header("Location:".site_url()."/apply-job?msg=successfully create your Biodata");
 		}
 		
 		
@@ -59,7 +59,7 @@
 			$load = new Basecareer_load();
 			$referenceModel = $load->model('model_candidate_reference');
 			$referenceModel->updateWhere('candidate_reference', $data , 'candidate_userid', $candidate_userid );
-			header("Location:/solar/edit-my-cv?msg=successfully create Update your CV");
+			header("Location:".site_url()."/edit-my-cv?msg=successfully create Update your CV");
 		}
 		public function deleteCandidateReference(){
 			$load             	 = new Basecareer_load();

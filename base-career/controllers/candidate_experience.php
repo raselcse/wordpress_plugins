@@ -70,7 +70,7 @@
 			 $success_insert = $labTestModel->save('candidate_experience' , $data);
 
 				
-			header("Location:/solar/apply-job?msg=successfully create your Biodata");
+			header("Location:".site_url()."/apply-job?msg=successfully create your Biodata");
 		}
 		
 		

@@ -12,6 +12,7 @@ register_activation_hook(__FILE__,'basecareer_admin_activator');
 register_deactivation_hook(__FILE__,'basecareer_admin_deactivator');
 
 include_once dirname(__FILE__).'/class/candidateClass.php';
+include_once dirname(__FILE__).'/class/applyJob.php';
 include_once dirname(__FILE__).'/core/controller/basecareer_controller.php';
 include_once dirname(__FILE__).'/core/controller/basecareer_load.php';
 include_once dirname(__FILE__).'/core/database/basecareer_database.php';
@@ -27,6 +28,7 @@ include_once dirname(__FILE__).'/controllers/candidate_reference.php';
 include_once dirname(__FILE__).'/controllers/candidate_file.php';
 include_once dirname(__FILE__).'/controllers/job.php';
 include_once dirname(__FILE__).'/controllers/cv.php';
+include_once dirname(__FILE__).'/controllers/apply_job.php';
 function basecareer_admin_activator(){
 	global $wp_rewrite;
 	include_once dirname(__FILE__).'/controllers/install_controller_basecareer.php';
@@ -60,6 +62,9 @@ function basecareer_css_and_js() {
 	wp_register_style('basecareer_ad_css', plugins_url('public/css/style.css',__FILE__ ));
 	wp_enqueue_style('basecareer_ad_css');
 	
+	wp_register_style('cv_view_css', plugins_url('template/cv/css/blue.css',__FILE__ ));
+	wp_enqueue_style('cv_view_css');
+	
 	// wp_register_script( 'basecareer_modernizr_js', plugins_url( 'public/js/modernizr.custom.79639.js', __FILE__ ));
 	// wp_enqueue_script('basecareer_modernizr_js');
 	
@@ -83,14 +88,12 @@ function basecareer_css_and_js() {
 	
 }
 
-
-add_action( 'admin_init','basecareer_css_and_js');
 add_action( 'init','basecareer_css_and_js');
 
 
 $candidateController = new Candidate();
-add_action( 'admin_menu', array($candidateController, 'candidate_admin_menu'));
-add_action( 'admin_menu', array($candidateController, 'candidate_admin_submenu'));
+// add_action( 'admin_menu', array($candidateController, 'candidate_admin_menu'));
+// add_action( 'admin_menu', array($candidateController, 'candidate_admin_submenu'));
 
 
 // Candidate Save
@@ -116,11 +119,18 @@ $referenceController = new Candidate_reference();
 add_action('admin_post_nopriv_submit_candidate', array($referenceController, 'saveReference'));
 add_action('admin_post_submit_candidate', array($referenceController, 'saveReference'));
 
+$fileController = new Candidate_file();
+
+add_action('admin_post_nopriv_submit_candidate',array($fileController, 'fileSave'));
+add_action('admin_post_submit_candidate', array($fileController, 'fileSave'));
 
 $cvController = new Cv();
-
-add_shortcode('cv-edit', array($cvController, 'getCvByUserId'));
+//add_action( 'admin_menu', array($cvController, 'cv_admin_submenu'));
+add_shortcode('view-cv', array($cvController, 'getCvInAdminView'));
+add_shortcode('edit-cv', array($cvController, 'getCvByUserId'));
 add_shortcode('new-cv', array($cvController, 'addNewCv'));
+$applyJobController = new Apply_job();
+add_shortcode('apply_job', array($applyJobController, 'applyNew'));
 
 add_action('admin_post_nopriv_update_cv', array($candidateController, 'updateCandidate'));
 add_action('admin_post_update_cv', array($candidateController, 'updateCandidate'));
@@ -137,21 +147,17 @@ add_action('admin_post_update_cv', array($professionalQualficationController, 'u
 add_action('admin_post_nopriv_update_cv', array($referenceController, 'updateReference'));
 add_action('admin_post_update_cv', array($referenceController, 'updateReference'));
 
+add_action('admin_post_nopriv_apply_job', array($applyJobController, 'applyJobAction'));
+add_action('admin_post_apply_job', array($applyJobController, 'applyJobAction'));
 
+add_action('admin_post_nopriv_update_cv',array($fileController, 'fileSave'));
+add_action('admin_post_update_cv', array($fileController, 'fileSave'));
 
 
 //add_filter( 'template_include', 'include_apply_job_template_function', 1 );
 add_filter( 'template_include', 'include_all_job_template_function', 1 );
 add_filter( 'template_include', 'include_submit_candidate_template_function', 1 );
 
-// function include_apply_job_template_function( $template_path ) {
-    // if (is_page('create-cv') ) {
-        
-		// $template_path = plugin_dir_path( __FILE__ ) . '/template/candidate_apply_job.php';
-			
-    // }
-    // return $template_path;
-// }
 
 
 
@@ -172,6 +178,8 @@ function include_submit_candidate_template_function( $template_path ) {
     }
     return $template_path;
 }
+
+
 
 
 

@@ -40,7 +40,7 @@
 			 $success_insert = $labTestModel->save('candidate_academic_qualification' , $data);
 
 				
-			header("Location:/solar/apply-job?msg=successfully create your Biodata");
+			header("Location:".site_url()."/apply-job?msg=successfully create your Biodata");
 		}
 		
 		
@@ -64,7 +64,6 @@
 			$data['passing_year']=$_REQUEST['passing_year'];
 			$load = new Basecareer_load();
 			$academicModel = $load->model('model_candidate_academic_qualification');
-			var_dump($data);
 			$updateAcademic = $academicModel->updateWhere('candidate_academic_qualification', $data , 'candidate_userid', $candidate_userid );
 		}
 		public function deleteCandidateQualification(){

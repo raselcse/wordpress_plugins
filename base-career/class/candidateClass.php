@@ -48,9 +48,23 @@ class Basecareer_candidate_list extends WP_List_Table {
 	{
 		global $wpdb;
 		$candidate_table = $wpdb->prefix.'candidate';
-		$sql = "select * from $candidate_table";
+		$candidate_academic_qualification_table = $wpdb->prefix.'candidate_academic_qualification';
+		$candidate_file_table = $wpdb->prefix.'candidate_file';
+		$sql = "SELECT $candidate_table.name,
+						$candidate_table.email,
+						$candidate_table.gender,
+						$candidate_table.marital_status,
+						$candidate_table.expected_salary,
+						$candidate_table.phone_no,
+						$candidate_table.total_experience,
+						$candidate_academic_qualification_table.subject,
+						$candidate_file_table.resume
+						FROM $candidate_table
+						INNER JOIN $candidate_academic_qualification_table ON $candidate_academic_qualification_table.candidate_userid = $candidate_table.candidate_userid
+						INNER JOIN $candidate_file_table ON $candidate_file_table.candidate_userid = $candidate_table.candidate_userid";
+		//echo $sql;
 		if (isset($_REQUEST['s'])) {
-		$sql.= ' where column1 LIKE "%' . $_REQUEST['s'] . '%" or column2 LIKE "%' . $_REQUEST['s'] . '%"';
+		$sql.= ' where name LIKE "%' . $_REQUEST['s'] . '%" or subject LIKE "%' . $_REQUEST['s'] . '%"';
 		}
 		if (!empty($_REQUEST['orderby'])) {
 				$sql.= ' ORDER BY ' . esc_sql($_REQUEST['orderby']);
@@ -76,7 +90,10 @@ class Basecareer_candidate_list extends WP_List_Table {
 			'marital_status' => __('Merital Status', 'ux') , 
 			'expected_salary' => __('Expected Salary', 'ux') , 
 			'phone_no' => __('Phone No', 'ux') , 
-			'total_experience' => __('Total Experience', 'ux')  
+			'total_experience' => __('Total Experience', 'ux') , 
+			'subject' => __('Subject', 'ux'),  
+			'view' => __('View ', 'ux'),  
+			'resume' => __('Resume', 'ux'),  
 		];
 		return $columns;
 	}
@@ -89,7 +106,13 @@ class Basecareer_candidate_list extends WP_List_Table {
 		case 'expected_salary':
 		case 'phone_no':
 		case 'total_experience':
+		case 'subject':
 		  return $item[ $column_name ];
+		
+		case 'view':
+		   return "<a class='button action' href='#'>View</a>";
+		case 'resume':
+		   return "<a class='button action' href='".site_url()."/".$item[$column_name]."'>Download</a>";
 		default:
 		  return print_r( $item, true ) ; //Show the whole array for troubleshooting purposes
 	  }
@@ -131,66 +154,66 @@ class Basecareer_candidate_list extends WP_List_Table {
 	*/
 	function column_name($item) {
 		$actions = array(
-            'edit'      => sprintf('<a href="?page=%s&action=%s&id=%s">Edit</a>',$_REQUEST['page'],'edit',$item['id']),
-            'delete'    => sprintf('<a href="?page=%s&action=%s&id=%s">Delete</a>',$_REQUEST['page'],'delete',$item['id']),
-        );
+			'edit'      => sprintf('<a href="?page=%s&action=%s&id=%s">Edit</a>',$_REQUEST['page'],'edit',$item['id']),
+			'delete'    => sprintf('<a href="?page=%s&action=%s&id=%s">Delete</a>',$_REQUEST['page'],'delete',$item['id']),
+		);
 
-	return sprintf('%1$s %2$s', $item['name'], $this->row_actions($actions) );
-}
+		return sprintf('%1$s %2$s', $item['name'], $this->row_actions($actions) );
+	}
 	
-	/** 
-* Returns an associative array containing the bulk action 
-* * @return array */
-public function get_bulk_actions()
-{
-    $actions = ['bulk-delete' => 'Delete'];
-    return $actions;
-}
-public function process_bulk_action()
-{
-    // Detect when a bulk action is being triggered...
-    if ('delete' === $this->current_action()) {
-    // In our file that handles the request, verify the nonce.
-            $nonce = esc_attr($_REQUEST['_wpnonce']);
-        if (!wp_verify_nonce($nonce, 'bx_delete_records')) {
-            die('Go get a life script kiddies');
-            }
-        else {
-            self::delete_records(absint($_GET['record']));
-            $redirect = admin_url('admin.php?page=codingbin_records');
-            wp_redirect($redirect);
-            exit;
-        }
-    }
- 
-    // // If the delete bulk action is triggered
-     // // If the delete bulk action is triggered
-		// if ((isset($_POST['action']){
-			// $_POST['action'] == 'bulk-delete') || (isset($_POST['action2']) & amp; & amp;
-			// $_POST['action2'] == 'bulk-delete')) {
-			// $delete_ids = esc_sql($_POST['bulk-delete']);
-			// // loop over the array of record IDs and delete them
-			// foreach($delete_ids as $id) {
-				// self::delete_records($id);
-			// }
+		/** 
+	* Returns an associative array containing the bulk action 
+	* * @return array */
+	public function get_bulk_actions()
+	{
+		$actions = ['bulk-delete' => 'Delete'];
+		return $actions;
+	}
+	public function process_bulk_action()
+	{
+		// Detect when a bulk action is being triggered...
+		if ('delete' === $this->current_action()) {
+		// In our file that handles the request, verify the nonce.
+				$nonce = esc_attr($_REQUEST['_wpnonce']);
+			if (!wp_verify_nonce($nonce, 'bx_delete_records')) {
+				die('Go get a life script kiddies');
+				}
+			else {
+				self::delete_records(absint($_GET['record']));
+				$redirect = admin_url('admin.php?page=codingbin_records');
+				wp_redirect($redirect);
+				exit;
+			}
+		}
 	 
-			// $redirect = admin_url('admin.php?page=codingbin_records');
-			// wp_redirect($redirect);
-			// exit;
-			// exit;
+		// // If the delete bulk action is triggered
+		 // // If the delete bulk action is triggered
+			// if ((isset($_POST['action']){
+				// $_POST['action'] == 'bulk-delete') || (isset($_POST['action2']) & amp; & amp;
+				// $_POST['action2'] == 'bulk-delete')) {
+				// $delete_ids = esc_sql($_POST['bulk-delete']);
+				// // loop over the array of record IDs and delete them
+				// foreach($delete_ids as $id) {
+					// self::delete_records($id);
+				// }
+		 
+				// $redirect = admin_url('admin.php?page=codingbin_records');
+				// wp_redirect($redirect);
+				// exit;
+				// exit;
+			// }
 		// }
-	// }
-}
-/** 
-* Delete a record record. 
-* * @param int $id customer ID 
-*/
-public static function delete_records($id)
-{
-    global $wpdb;
-	$candidate_table = $wpdb->prefix.'candidate';
-    $wpdb->delete($candidate_table, ['id' => $id], ['%d']);
-}
+	}
+	/** 
+	* Delete a record record. 
+	* * @param int $id customer ID 
+	*/
+	public static function delete_records($id)
+	{
+		global $wpdb;
+		$candidate_table = $wpdb->prefix.'candidate';
+		$wpdb->delete($candidate_table, ['id' => $id], ['%d']);
+	}
 
 	/** 
 	*Text displayed when no record data is available 
@@ -211,6 +234,48 @@ public static function delete_records($id)
 		$sql = "SELECT COUNT(*) FROM $candidate_table";
 		return $wpdb->get_var($sql);
 	}
+	
+	function extra_tablenav( $which ) {
+global $wpdb, $testiURL, $tablename, $tablet;
+$move_on_url = '&cat-filter=';
+if ( $which == "top" ){
+    ?>
+    <div class="alignleft actions bulkactions">
+    <?php
+    $cats = $wpdb->get_results('select * from '.$tablename.' order by title asc', ARRAY_A);
+    if( $cats ){
+        ?>
+        <select name="cat-filter" class="ewc-filter-cat">
+            <option value="">Filter by Category</option>
+            <?php
+            foreach( $cats as $cat ){
+                $selected = '';
+                if( $_GET['cat-filter'] == $cat['id'] ){
+                    $selected = ' selected = "selected"';   
+                }
+                $has_testis = false;
+                $chk_testis = $wpdb->get_row("select id from ".$tablet." where banner_id=".$cat['id'], ARRAY_A);
+                if( $chk_testis['id'] > 0 ){
+            ?>
+            <option value="<?php echo $move_on_url . $cat['id']; ?>" <?php echo $selected; ?>><?php echo $cat['title']; ?></option>
+            <?php   
+                }
+            }
+            ?>
+        </select>
+        <?php   
+    }
+    ?>  
+    </div>
+    <?php
+}
+if ( $which == "bottom" ){
+    //The code that goes after the table is there
+
+}
+}
+	
+	
 }//class
 
 function o_add_menu_items(){
@@ -223,7 +288,7 @@ static $myListTable;
     if( ! isset($myListTable)) {
         require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
         require_once(ABSPATH . 'wp-admin/includes/screen.php');
-        require_once(ABSPATH . 'wp-admin/includes/class-wp-screen.php');
+        //require_once(ABSPATH . 'wp-admin/includes/class-wp-screen.php');
         require_once(ABSPATH . 'wp-admin/includes/template.php');
         $myListTable = new Basecareer_candidate_list();
     }

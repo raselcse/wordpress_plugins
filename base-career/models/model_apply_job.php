@@ -1,5 +1,5 @@
 <?php
-class Model_candidate_file extends Basecareer_model{
+class Model_apply_job extends Basecareer_model{
     
     public function __construct(){
      	
@@ -12,7 +12,7 @@ class Model_candidate_file extends Basecareer_model{
 		return $this->save_opl($table , $data);
 	}
 	
-	public function getAllPrescription($table){
+	public function getAll($table){
 		
 		return $this->getAll_opl($table);
 	}
@@ -23,7 +23,6 @@ class Model_candidate_file extends Basecareer_model{
 	}
 	
 	public function getById($table,$id){
-		
 		return $this->getById_opl($table ,$id);
 	}
 
@@ -31,17 +30,7 @@ class Model_candidate_file extends Basecareer_model{
 		
 		return $this->getByWhere_opl($table,$field,$value);
 	}
-    public function fieldValueExist($table,$fieldName,$id,$value){
-		global $wpdb;
-		$table = $wpdb->prefix.$table;
-		$sql   = "SELECT $fieldName FROM $table WHERE $id=$value";
-		
-		$data_list = $wpdb->get_results($sql);
-		return $data_list[0]->$fieldName;
 
-		//return $wpdb->mysql_fetch_object();	
-	
-	}
 	public function deleteById($table,$id){
 		
 		return $this->deleteById_opl($table , $id);
@@ -52,5 +41,17 @@ class Model_candidate_file extends Basecareer_model{
 		
 		return $this->update_opl($table,$data,$id);
 	}
+	public function updateWhere($table, $data, $field, $id){
+		
+		return $this->updateWhere_opl($table,$data,$field,$id);
+	}
 	
+	public function rawCountJobApply($table, $field, $request_field, $candidateId,$value){
+		global $wpdb;
+		$table = $wpdb->prefix.$table;
+		$sql   = "SELECT * FROM $table WHERE $field =$request_field and $candidateId = $value ";
+		$wpdb->get_results($sql); 
+
+		return $wpdb->num_rows;	
+	}
 }

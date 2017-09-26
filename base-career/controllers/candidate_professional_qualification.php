@@ -35,7 +35,7 @@
 			$success_insert = $labTestModel->save('candidate_professional_qualification' , $data);
 
 				
-			header("Location:/solar/apply-job?msg=successfully create your Biodata");
+			header("Location:".site_url()."/apply-job?msg=successfully create your Biodata");
 		}
 		
 		public function getProfessionalQualificationById(){
